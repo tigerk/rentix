@@ -62,13 +62,14 @@
 </template>
 
 <script setup lang="ts">
-import Taro, {useDidShow} from '@tarojs/taro'
+import Taro, {useDidShow, useDidHide, useDidUnload} from '@tarojs/taro'
 import {computed, reactive, ref} from 'vue'
 import {getUserProfile, updateUserProfile} from '@/api/auth'
 import {ensureLoggedIn} from '@/services/auth'
 import {getUser, setUser} from '@/services/storage'
 
 const saving = ref(false)
+let backTimer: ReturnType<typeof setTimeout> | null = null
 
 const form = reactive({
   avatar: '',
@@ -111,7 +112,8 @@ async function handleSave() {
       const local = getUser() || {}
       setUser({...local, avatar: form.avatar, nickname: form.nickname})
       Taro.showToast({title: '保存成功', icon: 'success'})
-      setTimeout(() => Taro.navigateBack(), 1500)
+      if (backTimer) clearTimeout(backTimer)
+      backTimer = setTimeout(() => Taro.navigateBack(), 1500)
       return
     }
     Taro.showToast({title: res.message || '保存失败', icon: 'none'})
@@ -121,6 +123,21 @@ async function handleSave() {
     saving.value = false
   }
 }
+
+function clearTimers() {
+  if (backTimer) {
+    clearTimeout(backTimer)
+    backTimer = null
+  }
+}
+
+useDidHide(() => {
+  clearTimers()
+})
+
+useDidUnload(() => {
+  clearTimers()
+})
 </script>
 
 <style>

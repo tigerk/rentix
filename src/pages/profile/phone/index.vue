@@ -108,7 +108,7 @@
 </template>
 
 <script setup lang="ts">
-import Taro, { useDidShow, useDidHide } from '@tarojs/taro'
+import Taro, { useDidShow, useDidHide, useDidUnload } from '@tarojs/taro'
 import { reactive, ref } from 'vue'
 import { sendAccountNewPhoneSms, sendAccountOldPhoneSms, updateAccountPhone } from '@/api/auth'
 import { ensureLoggedIn } from '@/services/auth'
@@ -120,6 +120,7 @@ const newCountdown = ref(0)
 const currentStep = ref(1)
 let oldTimer: number | null = null
 let newTimer: number | null = null
+let backTimer: ReturnType<typeof setTimeout> | null = null
 
 const form = reactive({
   oldVerifyCode: '',
@@ -138,6 +139,13 @@ useDidShow(() => {
 useDidHide(() => {
   if (oldTimer) clearInterval(oldTimer)
   if (newTimer) clearInterval(newTimer)
+  if (backTimer) clearTimeout(backTimer)
+})
+
+useDidUnload(() => {
+  if (oldTimer) clearInterval(oldTimer)
+  if (newTimer) clearInterval(newTimer)
+  if (backTimer) clearTimeout(backTimer)
 })
 
 async function sendOldCode() {
@@ -212,7 +220,8 @@ async function handleSave() {
       const local = getUser() || {}
       setUser({ ...local, username: form.newPhone })
       Taro.showToast({ title: '手机号已更换', icon: 'success' })
-      setTimeout(() => Taro.navigateBack(), 1500)
+      if (backTimer) clearTimeout(backTimer)
+      backTimer = setTimeout(() => Taro.navigateBack(), 1500)
       return
     }
     Taro.showToast({ title: res.message || '更换失败', icon: 'none' })

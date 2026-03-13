@@ -319,6 +319,8 @@ let lastResetCaptchaPhone = ''
 
 const captchaUrl = ref('')
 const resetCaptchaUrl = ref('')
+let captchaTimer: ReturnType<typeof setTimeout> | null = null
+let resetCaptchaTimer: ReturnType<typeof setTimeout> | null = null
 
 /** 刷新登录验证码（点击图片 / 发送失败 / 手机号输完失焦） */
 function refreshCaptcha() {
@@ -329,7 +331,8 @@ function refreshCaptcha() {
   }
   // 先清空再赋值，确保小程序 image 组件检测到 src 变化并重新请求
   captchaUrl.value = ''
-  setTimeout(() => {
+  if (captchaTimer) clearTimeout(captchaTimer)
+  captchaTimer = setTimeout(() => {
     captchaUrl.value = buildCaptchaUrl(phone)
   }, 50)
   lastCaptchaPhone = phone
@@ -344,7 +347,8 @@ function refreshResetCaptcha() {
     return
   }
   resetCaptchaUrl.value = ''
-  setTimeout(() => {
+  if (resetCaptchaTimer) clearTimeout(resetCaptchaTimer)
+  resetCaptchaTimer = setTimeout(() => {
     resetCaptchaUrl.value = buildCaptchaUrl(phone)
   }, 50)
   lastResetCaptchaPhone = phone
@@ -378,9 +382,32 @@ watch(mode, (val) => {
 let codeTimer: ReturnType<typeof setInterval> | null = null
 let resetTimer: ReturnType<typeof setInterval> | null = null
 
+function clearAllTimers() {
+  if (codeTimer) {
+    clearInterval(codeTimer)
+    codeTimer = null
+  }
+  if (resetTimer) {
+    clearInterval(resetTimer)
+    resetTimer = null
+  }
+  if (captchaTimer) {
+    clearTimeout(captchaTimer)
+    captchaTimer = null
+  }
+  if (resetCaptchaTimer) {
+    clearTimeout(resetCaptchaTimer)
+    resetCaptchaTimer = null
+  }
+}
+
 if (getToken()) {
   Taro.reLaunch({url: '/pages/home/index'})
 }
+
+onUnmounted(() => {
+  clearAllTimers()
+})
 
 function toggleMode() {
   mode.value = mode.value === 'password' ? 'sms' : 'password'

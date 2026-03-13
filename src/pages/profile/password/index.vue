@@ -100,7 +100,7 @@
 </template>
 
 <script setup lang="ts">
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow, useDidHide, useDidUnload } from '@tarojs/taro'
 import { computed, reactive, ref } from 'vue'
 import { updateAccountPassword } from '@/api/auth'
 import { ensureLoggedIn } from '@/services/auth'
@@ -110,6 +110,7 @@ const saving = ref(false)
 const showOld = ref(false)
 const showNew = ref(false)
 const showConfirm = ref(false)
+let backTimer: ReturnType<typeof setTimeout> | null = null
 
 const form = reactive({
   oldPassword: '',
@@ -169,7 +170,8 @@ async function handleSave() {
       Taro.showToast({ title: '密码已更新，请重新登录', icon: 'success' })
       clearToken()
       clearUser()
-      setTimeout(() => Taro.reLaunch({ url: '/pages/login/index' }), 1500)
+      if (backTimer) clearTimeout(backTimer)
+      backTimer = setTimeout(() => Taro.reLaunch({ url: '/pages/login/index' }), 1500)
       return
     }
     Taro.showToast({ title: res.message || '修改失败', icon: 'none' })
@@ -179,6 +181,21 @@ async function handleSave() {
     saving.value = false
   }
 }
+
+function clearTimers() {
+  if (backTimer) {
+    clearTimeout(backTimer)
+    backTimer = null
+  }
+}
+
+useDidHide(() => {
+  clearTimers()
+})
+
+useDidUnload(() => {
+  clearTimers()
+})
 </script>
 
 <style>
