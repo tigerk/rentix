@@ -55,7 +55,7 @@
           @click="navigateTo(item)"
         >
           <view class="tool-icon-wrap" :style="{ background: item.bg }">
-            <view class="tool-emoji">{{ item.icon }}</view>
+            <image class="tool-icon-img" :src="item.icon" mode="aspectFill" />
           </view>
           <view class="tool-label">{{ item.label }}</view>
         </view>
@@ -143,9 +143,9 @@ const ROUTE_URL_MAP: Record<string, string> = {
 // 各入口的 icon 与背景色
 // ─────────────────────────────────────────────
 const ROUTE_META: Record<string, { icon: string; bg: string }> = {
-  HouseFocusRoom: {icon: '🏠', bg: 'linear-gradient(135deg,#3b82f6,#2563eb)'},
-  HouseScatter: {icon: '🏡', bg: 'linear-gradient(135deg,#f97316,#ea580c)'},
-  ApprovalTodo: {icon: '✅', bg: 'linear-gradient(135deg,#10b981,#059669)'},
+  HouseFocusRoom: {icon: '/assets/tabbar/room.png', bg: 'linear-gradient(135deg,#3b82f6,#2563eb)'},
+  HouseScatter: {icon: '/assets/tabbar/room.png', bg: 'linear-gradient(135deg,#f97316,#ea580c)'},
+  ApprovalTodo: {icon: '/assets/tabbar/approval.png', bg: 'linear-gradient(135deg,#7FFCA2,#059669)'},
 }
 
 // ─────────────────────────────────────────────
@@ -160,7 +160,7 @@ function extractVisibleTools(list: AsyncRoutesVo[]): MenuItem[] {
     } else {
       const name = item.name
       if (name && ROUTE_URL_MAP[name]) {
-        const meta = ROUTE_META[name] ?? {icon: '📌', bg: 'linear-gradient(135deg,#6b7280,#4b5563)'}
+        const meta = ROUTE_META[name] ?? {icon: '/assets/tabbar/home.png', bg: 'linear-gradient(135deg,#6b7280,#4b5563)'}
         result.push({
           name,
           label: item.meta?.title || name,
@@ -531,6 +531,12 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.13);
+}
+
+.tool-icon-img {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 24rpx;
 }
 
 .tool-emoji {
