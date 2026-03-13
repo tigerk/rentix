@@ -88,7 +88,7 @@
     </view>
 
     <!-- 版本号 -->
-    <view class="version-info">Rentix v1.0.0</view>
+    <view class="version-info">© 2025 TestSystem. All rights reserved.</view>
   </view>
 </template>
 
