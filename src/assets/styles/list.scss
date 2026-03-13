@@ -1,0 +1,75 @@
+// ============================================================
+// List — 数据列表卡片、空状态
+// 使用页面：room、contract、approval
+// ============================================================
+@import './variables';
+
+// 列表项卡片（与 .card 组合使用）
+.list-card {
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+  margin-bottom: $spacing-md;
+}
+
+// 列表项标题行（名称 + 状态标签）
+.list-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-xs;
+}
+
+.list-title {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+// 状态标签
+.list-status {
+  font-size: $font-sm;
+  color: #1f6feb;
+}
+
+// 元信息行（灰色小字）
+.list-meta {
+  color: $color-text-secondary;
+  font-size: $font-sm;
+  margin-top: 4rpx;
+}
+
+// 空状态
+.empty {
+  text-align: center;
+  color: $color-text-disabled;
+  padding-top: 120rpx;
+  font-size: $font-base;
+}
+
+// 富空状态（图标 + 标题 + 副标题）
+.empty-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 160rpx;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+  margin-bottom: $spacing-lg;
+  opacity: 0.5;
+}
+
+.empty-text {
+  font-size: $font-md;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 10rpx;
+}
+
+.empty-sub {
+  font-size: $font-sm;
+  color: $color-text-disabled;
+}

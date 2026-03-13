@@ -1,0 +1,70 @@
+// ============================================================
+// Design Tokens — 所有颜色、圆角、阴影统一在此维护
+// ============================================================
+
+// --- 品牌色 ---
+$color-primary:       #3478f6;
+$color-primary-start: #3478f6;
+$color-primary-end:   #5b9aff;
+$color-primary-dark:  #1a56db;
+$color-primary-hover: #2d6ad9;
+
+// --- 中性色 ---
+$color-text-primary:   #111827;
+$color-text-secondary: #6b7280;
+$color-text-tertiary:  #8f96a3;
+$color-text-placeholder: #c0c9d6;
+$color-text-disabled:  #9ca3af;
+$color-text-hint:      #94a3b8;
+
+// --- 背景色 ---
+$color-bg-page:   #f2f4f7;
+$color-bg-card:   #ffffff;
+$color-bg-input:  #f9fafb;
+$color-bg-muted:  #f3f4f6;
+$color-bg-blue:   #eff6ff;
+$color-bg-green:  #f0fdf4;
+$color-bg-purple: #faf5ff;
+$color-bg-orange: #fff7ed;
+
+// --- 边框色 ---
+$color-border:       #e5e7eb;
+$color-border-light: #f1f5f9;
+$color-border-focus: #3478f6;
+
+// --- 语义色 ---
+$color-success: #22c55e;
+$color-warning: #f59e0b;
+$color-danger:  #ef4444;
+$color-info:    #0369a1;
+
+// --- 圆角 ---
+$radius-sm:   12rpx;
+$radius-md:   16rpx;
+$radius-lg:   20rpx;
+$radius-xl:   24rpx;
+$radius-full: 999rpx;
+
+// --- 阴影 ---
+$shadow-card:    0 4rpx 16rpx rgba(15, 23, 42, 0.06);
+$shadow-card-lg: 0 8rpx 28rpx rgba(15, 23, 42, 0.08);
+$shadow-primary: 0 8rpx 24rpx rgba(52, 120, 246, 0.35);
+$shadow-blue-sm: 0 4rpx 24rpx rgba(52, 120, 246, 0.14);
+
+// --- 间距 ---
+$spacing-xs:  8rpx;
+$spacing-sm:  12rpx;
+$spacing-md:  16rpx;
+$spacing-lg:  24rpx;
+$spacing-xl:  32rpx;
+$spacing-2xl: 48rpx;
+
+// --- 字号 ---
+$font-xs:   22rpx;
+$font-sm:   24rpx;
+$font-base: 28rpx;
+$font-md:   30rpx;
+$font-lg:   32rpx;
+$font-xl:   34rpx;
+$font-2xl:  40rpx;
+$font-3xl:  48rpx;

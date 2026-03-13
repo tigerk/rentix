@@ -1,0 +1,113 @@
+// ============================================================
+// Button — 主按钮、次按钮、文字按钮
+// 使用页面：profile/edit、profile/password、profile/phone、company/switch
+// ============================================================
+@import './variables';
+
+// 主按钮（渐变蓝）
+.btn-primary {
+  width: 100%;
+  height: 96rpx;
+  border-radius: $radius-lg;
+  background: linear-gradient(135deg, $color-primary-start, $color-primary-end);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $shadow-primary;
+
+  &:active {
+    opacity: 0.85;
+  }
+
+  &--loading {
+    opacity: 0.7;
+  }
+}
+
+.btn-primary-text {
+  font-size: $font-lg;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 4rpx;
+}
+
+// 次按钮（灰色）
+.btn-secondary {
+  height: 88rpx;
+  border-radius: $radius-md;
+  background: $color-bg-muted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    opacity: 0.85;
+  }
+}
+
+.btn-secondary-text {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-text-secondary;
+}
+
+// 危险按钮（红色文字）
+.btn-danger-text {
+  text-align: center;
+  padding: 30rpx;
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-danger;
+}
+
+// 按钮区域容器
+.btn-section {
+  padding: $spacing-xl $spacing-lg 0;
+}
+
+// Sheet（底部弹层）操作栏
+.sheet-actions {
+  display: flex;
+  margin-top: $spacing-xl;
+  gap: 20rpx;
+}
+
+.sheet-btn-cancel {
+  flex: 1;
+  height: 88rpx;
+  border-radius: $radius-md;
+  background: $color-bg-muted;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sheet-btn-confirm {
+  flex: 2;
+  height: 88rpx;
+  border-radius: $radius-md;
+  background: linear-gradient(135deg, $color-primary-start, $color-primary-end);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:active {
+    opacity: 0.85;
+  }
+
+  &--loading {
+    opacity: 0.7;
+  }
+}
+
+.sheet-btn-cancel-text {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-text-secondary;
+}
+
+.sheet-btn-confirm-text {
+  font-size: $font-md;
+  font-weight: 600;
+  color: #ffffff;
+}

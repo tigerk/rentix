@@ -1,0 +1,117 @@
+// ============================================================
+// Menu — 菜单卡片、列表项、图标
+// 使用页面：profile/index、profile/security
+// ============================================================
+@import './variables';
+
+// 菜单卡片容器
+.menu-card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+}
+
+// 菜单项
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-lg;
+  min-height: 96rpx;
+
+  &:active {
+    background: #f8fafc;
+  }
+}
+
+.menu-item--tall {
+  min-height: 112rpx;
+}
+
+.menu-item-left {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-item-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.menu-item-title {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-text-primary;
+}
+
+.menu-item-sub {
+  font-size: $font-xs;
+  color: $color-text-tertiary;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menu-item-right {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  flex-shrink: 0;
+}
+
+.menu-item-value {
+  font-size: 26rpx;
+  color: $color-text-tertiary;
+  max-width: 260rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menu-arrow {
+  font-size: 40rpx;
+  color: #c5ccd6;
+  line-height: 1;
+}
+
+.menu-action-text {
+  font-size: 26rpx;
+  color: $color-primary;
+  font-weight: 500;
+}
+
+// 菜单分割线（缩进对齐图标）
+.menu-divider {
+  height: 1rpx;
+  background: $color-border-light;
+  margin: 0 $spacing-lg 0 106rpx;
+}
+
+// 菜单图标容器
+.menu-icon-wrap {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menu-icon-text {
+  font-size: 28rpx;
+  line-height: 1;
+}
+
+// 图标颜色主题
+.menu-icon--blue   { background: $color-bg-blue;   .menu-icon-text { color: $color-primary; } }
+.menu-icon--green  { background: $color-bg-green;  .menu-icon-text { color: $color-success; } }
+.menu-icon--purple { background: $color-bg-purple; .menu-icon-text { color: #a855f7; } }
+.menu-icon--orange { background: $color-bg-orange; .menu-icon-text { color: $color-warning; } }

@@ -1,0 +1,51 @@
+// ============================================================
+// Tip / Banner — 提示横幅、安全提示
+// 使用页面：profile/password、profile/security
+// ============================================================
+@import './variables';
+
+// 信息提示（蓝色）
+.tip-banner {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  background: #f0f9ff;
+  border-radius: $radius-md;
+  padding: 20rpx;
+  border: 1rpx solid #e0f2fe;
+}
+
+.tip-icon {
+  font-size: 28rpx;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.tip-text {
+  font-size: $font-sm;
+  color: $color-info;
+  line-height: 1.5;
+}
+
+// 安全提示（同色系，可复用 tip-banner）
+.security-tips {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-sm;
+  background: #f0f9ff;
+  border-radius: $radius-md;
+  padding: 20rpx;
+  border: 1rpx solid #e0f2fe;
+}
+
+.tips-icon {
+  font-size: 28rpx;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.tips-text {
+  font-size: $font-sm;
+  color: $color-info;
+  line-height: 1.6;
+}

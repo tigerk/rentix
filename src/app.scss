@@ -1,5 +1,8 @@
 @import "@nutui/nutui-taro/dist/style.css";
 
+// ============================================================
+// NutUI 主题覆盖
+// ============================================================
 :root {
   --nutui-brand-color: #3478f6;
   --nutui-brand-color-start: #3478f6;
@@ -8,41 +11,35 @@
   --nutui-brand-color-active: #255dc2;
 }
 
+// ============================================================
+// 公共样式模块（按需引入到各页面，或全局加载）
+// ============================================================
+@import "@/assets/styles/variables"; // Design tokens（变量）
+@import "@/assets/styles/layout"; // 容器、分区、.card
+@import "@/assets/styles/form"; // 表单、输入框、验证码
+@import "@/assets/styles/button"; // 主按钮、次按钮
+@import "@/assets/styles/menu"; // 菜单列表、图标
+@import "@/assets/styles/list"; // 数据列表、空状态
+@import "@/assets/styles/tip"; // 提示横幅
+@import "@/assets/styles/avatar"; // 用户头像、公司头像
+
+// ============================================================
+// 全局基础样式
+// ============================================================
 page {
-  background: #f6f7f9;
+  background: #f2f4f7; // 与 $color-bg-page 保持一致
   color: #1f2328;
   font-size: 28rpx;
+  padding-bottom: 140rpx; // tabBar 页底部留白
 }
 
-page {
-  padding-bottom: 140rpx;
-}
-
-.container {
-  padding: 24rpx;
-}
-
-.card {
-  background: #ffffff;
-  border-radius: 16rpx;
-  padding: 24rpx;
-  box-shadow: 0 12rpx 24rpx rgba(15, 23, 42, 0.06);
-}
-
-.section-title {
-  font-size: 30rpx;
-  font-weight: 600;
-  margin-bottom: 16rpx;
-}
-
-/* 统一 H5 和小程序的基础表现 */
+// H5 / 小程序基础对齐
 view, text, image {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* H5 下 text 会变成 span（inline），需要改成和小程序一致 */
 text {
   display: inline;
   line-height: 1.4;

@@ -1,0 +1,40 @@
+// ============================================================
+// Layout — 页面容器、分区间距
+// ============================================================
+@import './variables';
+
+// 标准页面容器（tabBar 页用）
+.container {
+  padding: $spacing-lg;
+}
+
+// 子页面容器（非 tabBar，有导航栏）
+.page {
+  min-height: 100vh;
+  background-color: $color-bg-page;
+  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
+}
+
+// 带内边距的分区间隔（子页面常用）
+.section-gap {
+  padding: 0 $spacing-lg;
+  margin-top: 20rpx;
+}
+
+// 分区标题（灰色小标签）
+.section-label {
+  font-size: $font-sm;
+  color: $color-text-tertiary;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+  padding: 0 4rpx;
+  margin-bottom: 10rpx;
+}
+
+// 通用卡片
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-xl;
+  padding: $spacing-lg;
+  box-shadow: $shadow-card;
+}

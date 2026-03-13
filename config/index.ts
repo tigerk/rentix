@@ -28,7 +28,8 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
     },
     sass: {
       resource: [
-        path.resolve(__dirname, '..', 'src/assets/styles/custom_theme.scss')
+        path.resolve(__dirname, '..', 'src/assets/styles/custom_theme.scss'),
+        path.resolve(__dirname, '..', 'src/assets/styles/variables.scss')
       ]
     },
     sourceRoot: 'src',

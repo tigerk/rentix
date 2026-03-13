@@ -1,0 +1,169 @@
+// ============================================================
+// Form — 表单卡片、输入框、验证码按钮
+// 使用页面：login、profile/edit、profile/password、profile/phone
+// ============================================================
+@import './variables';
+
+// 表单卡片容器
+.form-card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+}
+
+// 单行表单项
+.form-item {
+  display: flex;
+  align-items: center;
+  padding: 0 $spacing-lg;
+  height: 104rpx;
+  gap: $spacing-md;
+}
+
+// 多行（textarea）表单项
+.form-item--textarea {
+  align-items: flex-start;
+  min-height: 200rpx;
+  padding-top: $spacing-lg;
+  padding-bottom: $spacing-lg;
+  height: auto;
+}
+
+// 表单标签
+.form-label {
+  font-size: $font-md;
+  font-weight: 600;
+  color: $color-text-primary;
+  width: 120rpx;
+  flex-shrink: 0;
+}
+
+// 输入框包裹层
+.form-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  min-width: 0;
+}
+
+// 输入框本体
+.form-input {
+  flex: 1;
+  font-size: $font-md;
+  color: $color-text-primary;
+  height: 56rpx;
+  line-height: 56rpx;
+  background: transparent;
+  border: none;
+  outline: none;
+  min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+}
+
+// placeholder 样式（需在组件上通过 placeholder-class 指定）
+.form-placeholder {
+  color: $color-text-placeholder;
+  font-size: $font-md;
+}
+
+// 表单项分割线
+.form-divider {
+  height: 1rpx;
+  background: $color-border-light;
+  margin: 0 $spacing-lg 0 156rpx; // 与 label(120) + padding(24) + gap(16) 对齐
+}
+
+// Textarea 包裹层
+.form-textarea-wrap {
+  flex: 1;
+  position: relative;
+  padding-top: 4rpx;
+}
+
+// Textarea 本体
+.form-textarea {
+  width: 100%;
+  min-height: 180rpx;
+  font-size: $font-md;
+  color: $color-text-primary;
+  line-height: 1.6;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+// 字数统计
+.textarea-count {
+  text-align: right;
+  font-size: $font-xs;
+  color: $color-text-placeholder;
+  margin-top: $spacing-xs;
+}
+
+// 清除按钮
+.input-clear {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 22rpx;
+  background: $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.input-clear-icon {
+  font-size: 18rpx;
+  color: $color-text-secondary;
+  line-height: 1;
+}
+
+// 验证码按钮（行内）
+.code-btn {
+  flex-shrink: 0;
+  padding: 8rpx 16rpx;
+  background: $color-bg-blue;
+  border-radius: $radius-sm;
+}
+
+.code-btn--disabled {
+  background: $color-border-light;
+}
+
+.code-btn-text {
+  font-size: $font-sm;
+  color: $color-primary;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.code-btn--disabled .code-btn-text {
+  color: $color-text-disabled;
+  font-weight: 400;
+}
+
+// 密码显隐按钮
+.eye-btn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.eye-icon {
+  font-size: 28rpx;
+  opacity: 0.5;
+}

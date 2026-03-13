@@ -1,0 +1,85 @@
+// ============================================================
+// Avatar — 用户头像、公司头像
+// 使用页面：profile/index、profile/edit、profile/security、company/switch
+// ============================================================
+@import './variables';
+
+// 用户头像（圆形）
+.avatar-wrap {
+  position: relative;
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 64rpx;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 64rpx;
+  display: block;
+}
+
+// 无图时的文字头像
+.avatar-fallback {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 64rpx;
+  background: linear-gradient(135deg, $color-primary-start, $color-primary-end);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+// 编辑角标
+.avatar-edit-badge {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 22rpx;
+  background: #ffffff;
+  border: 3rpx solid rgba(52, 120, 246, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+.avatar-edit-icon {
+  font-size: 22rpx;
+  color: $color-primary;
+  line-height: 1;
+}
+
+// 公司/组织方形头像
+.company-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: $spacing-lg; // 24rpx
+  background: linear-gradient(135deg, #e8edff, #dbe4ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.company-avatar--active {
+  background: linear-gradient(135deg, $color-primary-start, $color-primary-end);
+  box-shadow: 0 6rpx 18rpx rgba(52, 120, 246, 0.35);
+}
+
+.company-avatar-text {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: $color-primary;
+  line-height: 1;
+}
+
+.company-avatar--active .company-avatar-text {
+  color: #ffffff;
+}
