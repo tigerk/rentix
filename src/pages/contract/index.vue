@@ -31,7 +31,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useDidShow } from '@tarojs/taro'
-import { syncTabbarByRoute } from '@/utils/tabbar'
 import { getBookingList, getTenantList, BookingItem, TenantItem } from '@/api/contract'
 import { ensureLoggedIn } from '@/services/auth'
 
@@ -40,7 +39,6 @@ const tenants = ref<TenantItem[]>([])
 const bookings = ref<BookingItem[]>([])
 
 useDidShow(async () => {
-  syncTabbarByRoute()
   ensureLoggedIn()
   await loadTenants()
   await loadBookings()

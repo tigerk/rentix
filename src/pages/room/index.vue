@@ -16,14 +16,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useDidShow } from '@tarojs/taro'
-import { syncTabbarByRoute } from '@/utils/tabbar'
 import { getRoomList, RoomItem } from '@/api/room'
 import { ensureLoggedIn } from '@/services/auth'
 
 const rooms = ref<RoomItem[]>([])
 
 useDidShow(async () => {
-  syncTabbarByRoute()
   ensureLoggedIn()
   const res = await getRoomList({ currentPage: 1, pageSize: 20 })
   if (res.code === 0) {
