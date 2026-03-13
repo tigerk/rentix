@@ -15,15 +15,19 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
-import {useDidShow} from '@tarojs/taro'
-import {getRoomList, RoomItem} from '@/api/room'
+import Taro, {useDidShow} from '@tarojs/taro'
+import {getRoomList, RoomListVo} from '@/api/room'
 import {ensureLoggedIn} from '@/services/auth'
 
-const rooms = ref<RoomItem[]>([])
+const rooms = ref<RoomListVo[]>([])
+const leaseMode = ref<number | undefined>(undefined)
 
 useDidShow(async () => {
   ensureLoggedIn()
-  const res = await getRoomList({currentPage: 1, pageSize: 20})
+  const params = Taro.getCurrentInstance().router?.params || {}
+  const modeParam = params.leaseMode ? Number(params.leaseMode) : undefined
+  leaseMode.value = Number.isNaN(modeParam) ? undefined : modeParam
+  const res = await getRoomList({currentPage: 1, pageSize: 20, leaseMode: leaseMode.value})
   if (res.code === 0) {
     rooms.value = res.data?.list || []
   }

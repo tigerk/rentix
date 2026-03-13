@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import {ref} from 'vue'
-import {useDidShow} from '@tarojs/taro'
+import Taro, {useDidShow} from '@tarojs/taro'
 import {getBookingList, getTenantList, BookingItem, TenantItem} from '@/api/contract'
 import {ensureLoggedIn} from '@/services/auth'
 
@@ -40,6 +40,10 @@ const bookings = ref<BookingItem[]>([])
 
 useDidShow(async () => {
   ensureLoggedIn()
+  const params = Taro.getCurrentInstance().router?.params || {}
+  if (params.tab === 'tenant' || params.tab === 'booking') {
+    activeTab.value = params.tab as string
+  }
   await loadTenants()
   await loadBookings()
 })

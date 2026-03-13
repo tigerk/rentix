@@ -2,6 +2,8 @@ export default {
   pages: [
     'pages/login/index',
     'pages/home/index',
+    'pages/message/index',
+    'pages/message/detail/index',
     'pages/room/index',
     'pages/contract/index',
     'pages/approval/index',
@@ -31,16 +33,10 @@ export default {
         selectedIconPath: 'assets/tabbar/home-active.png'
       },
       {
-        pagePath: 'pages/room/index',
-        text: '房源',
-        iconPath: 'assets/tabbar/room.png',
-        selectedIconPath: 'assets/tabbar/room-active.png'
-      },
-      {
-        pagePath: 'pages/contract/index',
-        text: '合同',
-        iconPath: 'assets/tabbar/contract.png',
-        selectedIconPath: 'assets/tabbar/contract-active.png'
+        pagePath: 'pages/message/index',
+        text: '消息',
+        iconPath: 'assets/tabbar/xiaoxi.png',
+        selectedIconPath: 'assets/tabbar/xiaoxi-active.png'
       },
       {
         pagePath: 'pages/approval/index',
