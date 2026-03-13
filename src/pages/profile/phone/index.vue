@@ -46,8 +46,8 @@
           </view>
         </view>
       </view>
-      <view class="next-btn" @click="goToNextStep">
-        <view class="next-btn-text">下一步</view>
+      <view class="btn-primary" @click="goToNextStep">
+        <view class="btn-primary-text">下一步</view>
       </view>
     </view>
 
@@ -96,11 +96,11 @@
         </view>
       </view>
       <view
-        class="save-btn"
-        :class="{ 'save-btn--loading': saving }"
+        class="btn-primary"
+        :class="{ 'btn-primary--loading': saving }"
         @click="handleSave"
       >
-        <view class="save-btn-text">{{ saving ? '提交中...' : '确认更换' }}</view>
+        <view class="btn-primary-text">{{ saving ? '提交中...' : '确认更换' }}</view>
       </view>
     </view>
 
@@ -162,11 +162,11 @@ async function sendOldCode() {
 async function sendNewCode() {
   if (newCountdown.value > 0) return
   if (!form.newPhone) {
-    Taro.showToast({title: '请先输入新手机号', icon: 'none'})
+    Taro.showToast({title: '请先输入新手机号', icon: 'none'});
     return
   }
   if (!/^1[3-9]\d{9}$/.test(form.newPhone)) {
-    Taro.showToast({title: '请输入正确的手机号', icon: 'none'})
+    Taro.showToast({title: '请输入正确的手机号', icon: 'none'});
     return
   }
   const res = await sendAccountNewPhoneSms({phone: form.newPhone})
@@ -198,7 +198,7 @@ function startCountdown(type: 'old' | 'new') {
 
 function goToNextStep() {
   if (!form.oldVerifyCode) {
-    Taro.showToast({title: '请输入原手机号验证码', icon: 'none'})
+    Taro.showToast({title: '请输入原手机号验证码', icon: 'none'});
     return
   }
   currentStep.value = 2
@@ -206,7 +206,7 @@ function goToNextStep() {
 
 async function handleSave() {
   if (!form.newPhone || !form.newVerifyCode) {
-    Taro.showToast({title: '请填写完整信息', icon: 'none'})
+    Taro.showToast({title: '请填写完整信息', icon: 'none'});
     return
   }
   try {
@@ -234,19 +234,7 @@ async function handleSave() {
 </script>
 
 <style>
-.page {
-  min-height: 100vh;
-  background-color: #f2f4f7;
-  padding-top: 24rpx;
-  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
-}
-
-.section-gap {
-  padding: 0 24rpx;
-  margin-top: 20rpx;
-}
-
-/* ===== 步骤条 ===== */
+/* ===== 步骤条（本页独有）===== */
 .steps-wrap {
   display: flex;
   align-items: center;
@@ -303,8 +291,7 @@ async function handleSave() {
   flex: 1;
   height: 3rpx;
   background: #e5e7eb;
-  margin: 0 8rpx;
-  margin-bottom: 24rpx;
+  margin: 0 8rpx 24rpx;
   border-radius: 2rpx;
 }
 
@@ -312,7 +299,7 @@ async function handleSave() {
   background: #22c55e;
 }
 
-/* ===== 步骤标题 ===== */
+/* ===== 步骤标题（本页独有）===== */
 .step-title-wrap {
   margin-bottom: 16rpx;
   padding: 0 4rpx;
@@ -328,137 +315,5 @@ async function handleSave() {
 .step-title-sub {
   font-size: 24rpx;
   color: #8f96a3;
-}
-
-/* ===== 表单 ===== */
-.form-card {
-  background: #ffffff;
-  border-radius: 20rpx;
-  overflow: hidden;
-  box-shadow: 0 4rpx 16rpx rgba(15, 23, 42, 0.06);
-  margin-bottom: 20rpx;
-}
-
-.form-item {
-  display: flex;
-  align-items: center;
-  padding: 0 24rpx;
-  height: 104rpx;
-  gap: 16rpx;
-}
-
-.form-label {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #111827;
-  width: 120rpx;
-  flex-shrink: 0;
-}
-
-.form-input-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-  min-width: 0;
-}
-
-.form-input {
-  flex: 1;
-  font-size: 30rpx;
-  color: #111827;
-  height: 56rpx;
-  line-height: 56rpx;
-  background: transparent;
-  border: none;
-  outline: none;
-  min-width: 0;
-  -webkit-appearance: none;
-  appearance: none;
-  padding: 0;
-  margin: 0;
-}
-
-.form-placeholder {
-  color: #c0c9d6;
-  font-size: 28rpx;
-}
-
-/* ===== 验证码按钮 ===== */
-.code-btn {
-  flex-shrink: 0;
-  padding: 8rpx 16rpx;
-  background: #eff6ff;
-  border-radius: 12rpx;
-}
-
-.code-btn--disabled {
-  background: #f1f5f9;
-}
-
-.code-btn-text {
-  font-size: 24rpx;
-  color: #3478f6;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.code-btn--disabled .code-btn-text {
-  color: #9ca3af;
-}
-
-.form-divider {
-  height: 1rpx;
-  background: #f1f5f9;
-  margin: 0 24rpx 0 160rpx;
-}
-
-/* ===== 按钮 ===== */
-.next-btn {
-  width: 100%;
-  height: 96rpx;
-  border-radius: 20rpx;
-  background: linear-gradient(135deg, #3478f6, #5b9aff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(52, 120, 246, 0.35);
-}
-
-.next-btn:active {
-  opacity: 0.85;
-}
-
-.next-btn-text {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 4rpx;
-}
-
-.save-btn {
-  width: 100%;
-  height: 96rpx;
-  border-radius: 20rpx;
-  background: linear-gradient(135deg, #3478f6, #5b9aff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(52, 120, 246, 0.35);
-}
-
-.save-btn:active {
-  opacity: 0.85;
-}
-
-.save-btn--loading {
-  opacity: 0.7;
-}
-
-.save-btn-text {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 4rpx;
 }
 </style>

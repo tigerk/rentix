@@ -87,13 +87,13 @@
     </view>
 
     <!-- 按钮 -->
-    <view class="section-gap">
+    <view class="btn-section">
       <view
-        class="save-btn"
-        :class="{ 'save-btn--loading': saving }"
+        class="btn-primary"
+        :class="{ 'btn-primary--loading': saving }"
         @click="handleSave"
       >
-        <view class="save-btn-text">{{ saving ? '更新中...' : '确认修改' }}</view>
+        <view class="btn-primary-text">{{ saving ? '更新中...' : '确认修改' }}</view>
       </view>
     </view>
   </view>
@@ -192,126 +192,18 @@ function clearTimers() {
 useDidHide(() => {
   clearTimers()
 })
-
 onUnmounted(() => {
   clearTimers()
 })
 </script>
 
 <style>
-.page {
-  min-height: 100vh;
-  background-color: #f2f4f7;
-  padding-top: 24rpx;
-  padding-bottom: calc(40rpx + env(safe-area-inset-bottom));
-}
-
-.section-gap {
-  padding: 0 24rpx;
-  margin-top: 20rpx;
-}
-
-/* ===== 顶部提示 ===== */
-.tip-banner {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
-  background: #f0f9ff;
-  border-radius: 16rpx;
-  padding: 20rpx;
-  border: 1rpx solid #e0f2fe;
-}
-
-.tip-icon {
-  font-size: 28rpx;
-  flex-shrink: 0;
-}
-
-.tip-text {
-  font-size: 24rpx;
-  color: #0369a1;
-  line-height: 1.5;
-}
-
-/* ===== 表单 ===== */
-.form-card {
-  background: #ffffff;
-  border-radius: 20rpx;
-  overflow: hidden;
-  box-shadow: 0 4rpx 16rpx rgba(15, 23, 42, 0.06);
-}
-
-.form-item {
-  display: flex;
-  align-items: center;
-  padding: 0 24rpx;
-  height: 104rpx;
-  gap: 16rpx;
-}
-
-.form-label {
-  font-size: 30rpx;
-  font-weight: 600;
-  color: #111827;
-  width: 120rpx;
-  flex-shrink: 0;
-}
-
-.form-input-wrap {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-  min-width: 0;
-}
-
-.form-input {
-  flex: 1;
-  font-size: 30rpx;
-  color: #111827;
-  height: 56rpx;
-  line-height: 56rpx;
-  background: transparent;
-  border: none;
-  outline: none;
-  min-width: 0;
-  -webkit-appearance: none;
-  appearance: none;
-  padding: 0;
-  margin: 0;
-}
-
-.form-placeholder {
-  color: #c0c9d6;
-  font-size: 28rpx;
-}
-
-.eye-btn {
-  width: 48rpx;
-  height: 48rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.eye-icon {
-  font-size: 28rpx;
-  opacity: 0.5;
-}
-
-.form-divider {
-  height: 1rpx;
-  background: #f1f5f9;
-  margin: 0 24rpx 0 160rpx;
-}
-
-/* ===== 密码强度 ===== */
+/* ===== 密码强度（本页独有）===== */
 .strength-wrap {
   display: flex;
   align-items: center;
   gap: 8rpx;
-  padding: 4rpx 4rpx;
+  padding: 4rpx;
 }
 
 .strength-label {
@@ -358,33 +250,5 @@ onUnmounted(() => {
 
 .strength-text--3 {
   color: #22c55e;
-}
-
-/* ===== 按钮 ===== */
-.save-btn {
-  width: 100%;
-  height: 96rpx;
-  border-radius: 20rpx;
-  background: linear-gradient(135deg, #3478f6, #5b9aff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(52, 120, 246, 0.35);
-  margin-top: 16rpx;
-}
-
-.save-btn:active {
-  opacity: 0.85;
-}
-
-.save-btn--loading {
-  opacity: 0.7;
-}
-
-.save-btn-text {
-  font-size: 32rpx;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 4rpx;
 }
 </style>
