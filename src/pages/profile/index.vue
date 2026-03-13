@@ -15,8 +15,7 @@
         </view>
         <view class="user-name">{{ user?.nickname || user?.username || '用户' }}</view>
         <view class="user-company">
-          <view class="company-dot"/>
-          <view class="company-name-text">{{ currentCompanyName }}</view>
+          <view class="company-name-text">{{ currentCompanyName }} {{ currentDeptName}}</view>
         </view>
       </view>
     </view>
@@ -115,6 +114,13 @@ const currentCompanyName = computed(() => {
   if (!currentId) return '暂无公司'
   const match = (user.value?.companyList || []).find(item => item.companyId === currentId)
   return match?.companyName || String(currentId)
+})
+
+const currentDeptName = computed(() => {
+  const currentId = user.value?.curCompanyId
+  if (!currentId) return '暂无公司'
+  const match = (user.value?.companyList || []).find(item => item.companyId === currentId)
+  return match?.deptName || "-"
 })
 
 function goToProfileEdit() {
@@ -250,14 +256,6 @@ function handleLogout() {
   display: flex;
   align-items: center;
   gap: 8rpx;
-}
-
-.company-dot {
-  width: 12rpx;
-  height: 12rpx;
-  border-radius: 6rpx;
-  background: rgba(255, 255, 255, 0.6);
-  flex-shrink: 0;
 }
 
 .company-name-text {
