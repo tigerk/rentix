@@ -26,6 +26,11 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
       375: 2,
       828: 1.81 / 2
     },
+    sass: {
+      resource: [
+        path.resolve(__dirname, '..', 'src/assets/styles/custom_theme.scss')
+      ]
+    },
     sourceRoot: 'src',
     outputRoot: 'dist',
     alias: {
@@ -112,6 +117,7 @@ export default defineConfig<'webpack5'>(async (merge, { command, mode }) => {
         })
       }
     },
+
     rn: {
       appName: 'taroDemo',
       postcss: {

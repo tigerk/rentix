@@ -41,3 +41,39 @@ export function resetPassword(phone: string, verifyCode: string, password: strin
 export function getCurrentUser() {
   return request<UserLoginVO>({ url: 'login/current', method: 'POST', data: {} })
 }
+
+export function switchCompany(companyId: number) {
+  return request<UserLoginVO>({ url: 'switchCompany', method: 'POST', data: { companyId } })
+}
+
+export type UserProfileUpdateDTO = {
+  avatar?: string
+  nickname?: string
+  gender?: number
+  birthday?: string
+  remark?: string
+}
+
+export function getUserProfile() {
+  return request<UserProfileUpdateDTO>({ url: 'login/profile/get', method: 'POST', data: {} })
+}
+
+export function updateUserProfile(data: UserProfileUpdateDTO) {
+  return request<boolean>({ url: 'login/profile/update', method: 'POST', data })
+}
+
+export function updateAccountPassword(data: { oldPassword: string; newPassword: string }) {
+  return request<boolean>({ url: 'account/password/update', method: 'POST', data })
+}
+
+export function sendAccountOldPhoneSms() {
+  return request<boolean>({ url: 'account/phone/old/sms/send', method: 'POST', data: {} })
+}
+
+export function sendAccountNewPhoneSms(data: { phone: string }) {
+  return request<boolean>({ url: 'account/phone/new/sms/send', method: 'POST', data })
+}
+
+export function updateAccountPhone(data: { oldVerifyCode: string; newPhone: string; newVerifyCode: string }) {
+  return request<boolean>({ url: 'account/phone/update', method: 'POST', data })
+}

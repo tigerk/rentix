@@ -6,7 +6,12 @@ export default {
     'pages/contract/index',
     'pages/approval/index',
     'pages/profile/index',
-    'pages/company/pay/index'
+    'pages/profile/edit/index',
+    'pages/profile/phone/index',
+    'pages/profile/password/index',
+    'pages/profile/security/index',
+    'pages/company/pay/index',
+    'pages/company/switch/index'
   ],
   window: {
     backgroundTextStyle: 'light',
