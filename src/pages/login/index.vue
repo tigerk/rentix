@@ -269,7 +269,7 @@
 </template>
 
 <script setup lang="ts">
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import {reactive, ref, onUnmounted, watch} from 'vue'
 import {passwordLogin, sendSmsCode, smsLogin, resetPassword, wechatLogin} from '@/api/auth'
 import {getToken, setToken, setUser} from '@/services/storage'
@@ -401,9 +401,11 @@ function clearAllTimers() {
   }
 }
 
-if (getToken()) {
-  Taro.reLaunch({url: '/pages/home/index'})
-}
+useDidShow(() => {
+  if (getToken()) {
+    Taro.switchTab({url: '/pages/home/index'})
+  }
+})
 
 onUnmounted(() => {
   clearAllTimers()

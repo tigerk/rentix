@@ -29,7 +29,7 @@
           </view>
         </view>
 
-        <view class="form-divider" />
+        <view class="form-divider"/>
 
         <view class="form-item">
           <view class="form-label">新密码</view>
@@ -47,7 +47,7 @@
           </view>
         </view>
 
-        <view class="form-divider" />
+        <view class="form-divider"/>
 
         <view class="form-item">
           <view class="form-label">确认密码</view>
@@ -100,11 +100,11 @@
 </template>
 
 <script setup lang="ts">
-import Taro, { useDidShow, useDidHide, useDidUnload } from '@tarojs/taro'
-import { computed, reactive, ref } from 'vue'
-import { updateAccountPassword } from '@/api/auth'
-import { ensureLoggedIn } from '@/services/auth'
-import { clearToken, clearUser } from '@/services/storage'
+import Taro, {useDidShow, useDidHide} from '@tarojs/taro'
+import {computed, reactive, ref, onUnmounted} from 'vue'
+import {updateAccountPassword} from '@/api/auth'
+import {ensureLoggedIn} from '@/services/auth'
+import {clearToken, clearUser} from '@/services/storage'
 
 const saving = ref(false)
 const showOld = ref(false)
@@ -149,15 +149,15 @@ function strengthClass(index: number) {
 
 async function handleSave() {
   if (!form.oldPassword || !form.newPassword || !form.confirmPassword) {
-    Taro.showToast({ title: '请填写完整信息', icon: 'none' })
+    Taro.showToast({title: '请填写完整信息', icon: 'none'})
     return
   }
   if (form.newPassword.length < 6) {
-    Taro.showToast({ title: '密码长度不能少于6位', icon: 'none' })
+    Taro.showToast({title: '密码长度不能少于6位', icon: 'none'})
     return
   }
   if (form.newPassword !== form.confirmPassword) {
-    Taro.showToast({ title: '两次输入的密码不一致', icon: 'none' })
+    Taro.showToast({title: '两次输入的密码不一致', icon: 'none'})
     return
   }
   try {
@@ -167,16 +167,16 @@ async function handleSave() {
       newPassword: form.newPassword
     })
     if (res.code === 0) {
-      Taro.showToast({ title: '密码已更新，请重新登录', icon: 'success' })
+      Taro.showToast({title: '密码已更新，请重新登录', icon: 'success'})
       clearToken()
       clearUser()
       if (backTimer) clearTimeout(backTimer)
-      backTimer = setTimeout(() => Taro.reLaunch({ url: '/pages/login/index' }), 1500)
+      backTimer = setTimeout(() => Taro.reLaunch({url: '/pages/login/index'}), 1500)
       return
     }
-    Taro.showToast({ title: res.message || '修改失败', icon: 'none' })
+    Taro.showToast({title: res.message || '修改失败', icon: 'none'})
   } catch {
-    Taro.showToast({ title: '修改失败', icon: 'none' })
+    Taro.showToast({title: '修改失败', icon: 'none'})
   } finally {
     saving.value = false
   }
@@ -193,7 +193,7 @@ useDidHide(() => {
   clearTimers()
 })
 
-useDidUnload(() => {
+onUnmounted(() => {
   clearTimers()
 })
 </script>
@@ -238,7 +238,7 @@ useDidUnload(() => {
   background: #ffffff;
   border-radius: 20rpx;
   overflow: hidden;
-  box-shadow: 0 4rpx 16rpx rgba(15,23,42,0.06);
+  box-shadow: 0 4rpx 16rpx rgba(15, 23, 42, 0.06);
 }
 
 .form-item {
@@ -253,7 +253,7 @@ useDidUnload(() => {
   font-size: 30rpx;
   font-weight: 600;
   color: #111827;
-  width: 100rpx;
+  width: 120rpx;
   flex-shrink: 0;
 }
 
@@ -303,7 +303,7 @@ useDidUnload(() => {
 .form-divider {
   height: 1rpx;
   background: #f1f5f9;
-  margin: 0 24rpx 0 140rpx;
+  margin: 0 24rpx 0 160rpx;
 }
 
 /* ===== 密码强度 ===== */
@@ -331,18 +331,34 @@ useDidUnload(() => {
   background: #e5e7eb;
 }
 
-.strength-bar--weak { background: #ef4444; }
-.strength-bar--medium { background: #f59e0b; }
-.strength-bar--strong { background: #22c55e; }
+.strength-bar--weak {
+  background: #ef4444;
+}
+
+.strength-bar--medium {
+  background: #f59e0b;
+}
+
+.strength-bar--strong {
+  background: #22c55e;
+}
 
 .strength-text {
   font-size: 24rpx;
   font-weight: 600;
 }
 
-.strength-text--1 { color: #ef4444; }
-.strength-text--2 { color: #f59e0b; }
-.strength-text--3 { color: #22c55e; }
+.strength-text--1 {
+  color: #ef4444;
+}
+
+.strength-text--2 {
+  color: #f59e0b;
+}
+
+.strength-text--3 {
+  color: #22c55e;
+}
 
 /* ===== 按钮 ===== */
 .save-btn {
@@ -353,7 +369,7 @@ useDidUnload(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(52,120,246,0.35);
+  box-shadow: 0 8rpx 24rpx rgba(52, 120, 246, 0.35);
   margin-top: 16rpx;
 }
 

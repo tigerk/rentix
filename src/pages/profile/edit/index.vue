@@ -62,8 +62,8 @@
 </template>
 
 <script setup lang="ts">
-import Taro, {useDidShow, useDidHide, useDidUnload} from '@tarojs/taro'
-import {computed, reactive, ref} from 'vue'
+import Taro, {useDidShow, useDidHide} from '@tarojs/taro'
+import {computed, reactive, ref, onUnmounted} from 'vue'
 import {getUserProfile, updateUserProfile} from '@/api/auth'
 import {ensureLoggedIn} from '@/services/auth'
 import {getUser, setUser} from '@/services/storage'
@@ -135,7 +135,7 @@ useDidHide(() => {
   clearTimers()
 })
 
-useDidUnload(() => {
+onUnmounted(() => {
   clearTimers()
 })
 </script>
