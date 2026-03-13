@@ -39,12 +39,6 @@ export default {
         selectedIconPath: 'assets/tabbar/xiaoxi-active.png'
       },
       {
-        pagePath: 'pages/approval/index',
-        text: '审批',
-        iconPath: 'assets/tabbar/approval.png',
-        selectedIconPath: 'assets/tabbar/approval-active.png'
-      },
-      {
         pagePath: 'pages/profile/index',
         text: '我的',
         iconPath: 'assets/tabbar/profile.png',

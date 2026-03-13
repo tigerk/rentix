@@ -216,6 +216,10 @@ function formatTime(time?: string) {
 }
 
 function openDetail(type: 'notice' | 'message' | 'todo', item: any) {
+  if (type === 'todo') {
+    Taro.navigateTo({ url: '/pages/approval/index' })
+    return
+  }
   setNoticeDetail({
     type,
     id: item?.id,

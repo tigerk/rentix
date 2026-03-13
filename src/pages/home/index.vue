@@ -1,24 +1,21 @@
 <template>
   <view class="home-page">
-
-    <!-- 顶部渐变 Header -->
     <view class="home-header">
-      <view class="header-bg"/>
+      <view class="header-bg"></view>
       <view class="header-content">
         <view class="header-top">
           <view class="greeting-block">
             <view class="greeting-text">{{ greetingLabel }}，{{ shortName }}</view>
-            <view class="greeting-sub">欢迎回来，今天也要加油哦 🎯</view>
+            <view class="greeting-sub">欢迎回来，今天也要加油哦</view>
           </view>
           <view class="header-actions">
             <view class="header-btn" @click="goSearch">
-              <view class="header-btn-icon">🔍</view>
+              <view class="header-btn-icon">搜索</view>
               <view class="header-btn-label">搜索</view>
             </view>
           </view>
         </view>
 
-        <!-- 数据概览小卡片 -->
         <view class="stat-row">
           <view class="stat-card" v-for="s in stats" :key="s.label">
             <view class="stat-value">{{ s.value }}</view>
@@ -28,7 +25,6 @@
       </view>
     </view>
 
-    <!-- 常用功能 -->
     <view class="section-card tools-section">
       <view class="section-header">
         <view class="section-title">常用功能</view>
@@ -36,7 +32,7 @@
       </view>
       <view class="tool-grid">
         <view
-          v-for="tool in tools"
+          v-for="tool in filteredTools"
           :key="tool.label"
           class="tool-item"
           @click="tool.action"
@@ -49,7 +45,6 @@
       </view>
     </view>
 
-    <!-- 最新消息 -->
     <view class="section-card notice-section">
       <view class="section-header">
         <view class="section-title">最新消息</view>
@@ -67,7 +62,7 @@
           </view>
           <view class="notice-body">
             <view class="notice-row-title">
-              <view v-if="item.unread" class="unread-dot"/>
+              <view v-if="item.unread" class="unread-dot"></view>
               {{ item.title }}
             </view>
             <view class="notice-row-type">{{ item.typeLabel }}</view>
@@ -77,7 +72,6 @@
       </view>
     </view>
 
-    <!-- 数据概览 -->
     <view class="section-card data-section">
       <view class="section-header">
         <view class="section-title">数据概览</view>
@@ -91,18 +85,18 @@
         </view>
       </view>
     </view>
-
   </view>
 </template>
 
 <script setup lang="ts">
-import {ref, computed} from 'vue'
-import Taro, {useDidShow} from '@tarojs/taro'
-import {getTodoCount} from '@/api/approval'
-import {ensureLoggedIn} from '@/services/auth'
-import {getUser} from '@/services/storage'
-import {getRecentNotice} from '@/api/notice'
-import {setNoticeDetail} from '@/services/notice'
+import { ref, computed } from 'vue'
+import Taro, { useDidShow } from '@tarojs/taro'
+import { getTodoCount } from '@/api/approval'
+import { ensureLoggedIn } from '@/services/auth'
+import { getUser } from '@/services/storage'
+import { getRecentNotice } from '@/api/notice'
+import { setNoticeDetail } from '@/services/notice'
+import { flattenRouteKeys, hasPermission, loadAsyncRoutes } from '@/services/permission'
 
 const todoCount = ref(0)
 const nickname = ref('')
@@ -130,9 +124,9 @@ const shortName = computed(() => {
 })
 
 const stats = ref([
-  {label: '待处理', value: '0'},
-  {label: '空置房', value: '--'},
-  {label: '本月收款', value: '--'},
+  { label: '待处理', value: '0' },
+  { label: '空置房', value: '--' },
+  { label: '本月收款', value: '--' }
 ])
 
 const noticeItems = computed(() => [
@@ -142,7 +136,7 @@ const noticeItems = computed(() => [
     icon: '📢',
     iconBg: 'linear-gradient(135deg,#fbbf24,#f59e0b)',
     title: latestNotice.value?.title || '暂无公告',
-    unread: latestNoticeUnread.value,
+    unread: latestNoticeUnread.value
   },
   {
     type: 'message' as const,
@@ -150,7 +144,7 @@ const noticeItems = computed(() => [
     icon: '💬',
     iconBg: 'linear-gradient(135deg,#3b82f6,#2563eb)',
     title: latestMessage.value?.title || '暂无消息',
-    unread: latestMessageUnread.value,
+    unread: latestMessageUnread.value
   },
   {
     type: 'todo' as const,
@@ -158,42 +152,65 @@ const noticeItems = computed(() => [
     icon: '✅',
     iconBg: 'linear-gradient(135deg,#f97316,#ea580c)',
     title: latestTodo.value?.title || '暂无待办',
-    unread: latestTodoUnread.value,
-  },
+    unread: latestTodoUnread.value
+  }
 ])
 
 const dataCards = ref([
-  {label: '在租房间', value: '--', icon: '🏠', iconBg: '#eff6ff'},
-  {label: '空置房间', value: '--', icon: '🔑', iconBg: '#f0fdf4'},
-  {label: '待收租金', value: '--', icon: '💰', iconBg: '#fffbeb'},
-  {label: '本月新签', value: '--', icon: '📝', iconBg: '#faf5ff'},
+  { label: '在租房间', value: '--', icon: '🏠', iconBg: '#eff6ff' },
+  { label: '空置房间', value: '--', icon: '🔑', iconBg: '#f0fdf4' },
+  { label: '待收租金', value: '--', icon: '💰', iconBg: '#fffbeb' },
+  { label: '本月新签', value: '--', icon: '📝', iconBg: '#faf5ff' }
 ])
 
 const tools = computed(() => [
   {
+    key: 'scatter',
     label: '合/整租',
     icon: '🏡',
     bg: 'linear-gradient(135deg,#f97316,#ea580c)',
     action: goScatter,
+    patterns: [/HouseScatter/i]
   },
   {
+    key: 'focus',
     label: '独栋',
     icon: '🏢',
     bg: 'linear-gradient(135deg,#3b82f6,#2563eb)',
     action: goFocus,
+    patterns: [/HouseFocusRoom/i]
   },
   {
+    key: 'tenant',
     label: '租客合同',
     icon: '📋',
     bg: 'linear-gradient(135deg,#f59e0b,#d97706)',
     action: goTenantContract,
+    patterns: [/contract\/tenant/i, /tenant/i]
+  },
+  {
+    key: 'approval',
+    label: '我的审批',
+    icon: '🧾',
+    bg: 'linear-gradient(135deg,#10b981,#059669)',
+    action: goApproval,
+    patterns: [/ApprovalTodo/i]
   }
 ])
+
+const permissionKeys = ref<string[]>([])
+
+const filteredTools = computed(() => {
+  if (permissionKeys.value.length === 0) return tools.value
+  return tools.value.filter(tool => hasPermission(permissionKeys.value, tool.patterns))
+})
 
 useDidShow(async () => {
   ensureLoggedIn()
   const user = getUser()
   nickname.value = user?.nickname || user?.username || ''
+  const routes = await loadAsyncRoutes(false)
+  permissionKeys.value = flattenRouteKeys(routes)
   const res = await getTodoCount()
   if (res.code === 0) {
     todoCount.value = res.data || 0
@@ -217,35 +234,41 @@ async function loadRecentNotice() {
     Number(res.data?.unreadMessageCount || 0) +
     Number(res.data?.pendingTodoCount || 0)
   if (unreadCount > 0) {
-    Taro.setTabBarBadge({index: 1, text: unreadCount > 99 ? '99+' : String(unreadCount)})
+    Taro.setTabBarBadge({ index: 1, text: unreadCount > 99 ? '99+' : String(unreadCount) })
   } else {
-    Taro.removeTabBarBadge({index: 1})
+    Taro.removeTabBarBadge({ index: 1 })
   }
 }
 
 function goScatter() {
-  Taro.navigateTo({url: '/pages/room/index?leaseMode=2'})
+  Taro.navigateTo({ url: '/pages/room/index?leaseMode=2' })
 }
 
 function goFocus() {
-  Taro.navigateTo({url: '/pages/room/index?leaseMode=1'})
+  Taro.navigateTo({ url: '/pages/room/index?leaseMode=1' })
 }
 
 function goTenantContract() {
-  Taro.navigateTo({url: '/pages/contract/index?tab=tenant'})
+  Taro.navigateTo({ url: '/pages/contract/index?tab=tenant' })
 }
 
 function goMessage() {
-  Taro.switchTab({url: '/pages/message/index'})
+  Taro.switchTab({ url: '/pages/message/index' })
 }
 
-function goSearch() {
+function goApproval() {
+  Taro.navigateTo({ url: '/pages/approval/index' })
 }
 
-function goMore() {
-}
+function goSearch() {}
+
+function goMore() {}
 
 function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
+  if (type === 'todo') {
+    Taro.navigateTo({ url: '/pages/approval/index' })
+    return
+  }
   const data =
     type === 'notice'
       ? latestNotice.value
@@ -258,21 +281,19 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
     id: data?.id,
     title: data?.title,
     content: data?.content,
-    time: data?.publishTime || data?.createTime,
+    time: data?.publishTime || data?.createTime
   })
-  Taro.navigateTo({url: '/pages/message/detail/index'})
+  Taro.navigateTo({ url: '/pages/message/detail/index' })
 }
 </script>
 
 <style>
-/* ===== 页面容器 ===== */
 .home-page {
   min-height: 100vh;
   background: #f0f2f5;
   padding-bottom: 160rpx;
 }
 
-/* ===== Header ===== */
 .home-header {
   position: relative;
   overflow: hidden;
@@ -296,9 +317,6 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 36rpx;
-}
-
-.greeting-block {
 }
 
 .greeting-text {
@@ -334,6 +352,7 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
 .header-btn-icon {
   font-size: 32rpx;
   line-height: 1;
+  color: #fff;
 }
 
 .header-btn-label {
@@ -342,7 +361,6 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   font-weight: 500;
 }
 
-/* ===== 数据概览小条 ===== */
 .stat-row {
   display: flex;
   gap: 12rpx;
@@ -370,7 +388,6 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   margin-top: 4rpx;
 }
 
-/* ===== 通用卡片 ===== */
 .section-card {
   background: #fff;
   border-radius: 24rpx;
@@ -398,7 +415,6 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   font-weight: 500;
 }
 
-/* ===== 工具格子 ===== */
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -438,7 +454,6 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   text-align: center;
 }
 
-/* ===== 最新消息 ===== */
 .notice-list {
   display: flex;
   flex-direction: column;
@@ -514,7 +529,6 @@ function openNoticeDetail(type: 'notice' | 'message' | 'todo') {
   flex-shrink: 0;
 }
 
-/* ===== 数据概览格子 ===== */
 .data-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

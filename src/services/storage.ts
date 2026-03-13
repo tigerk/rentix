@@ -2,6 +2,7 @@ import Taro from '@tarojs/taro'
 
 const TOKEN_KEY = 'saas_token'
 const USER_KEY = 'saas_user'
+const ROUTES_KEY = 'saas_routes'
 
 export type UserInfo = {
   id?: number
@@ -39,4 +40,16 @@ export function getUser(): UserInfo | null {
 
 export function clearUser() {
   Taro.removeStorageSync(USER_KEY)
+}
+
+export function setAsyncRoutesCache(routes: any[]) {
+  Taro.setStorageSync(ROUTES_KEY, routes)
+}
+
+export function getAsyncRoutesCache(): any[] {
+  return Taro.getStorageSync(ROUTES_KEY) || []
+}
+
+export function clearAsyncRoutesCache() {
+  Taro.removeStorageSync(ROUTES_KEY)
 }

@@ -273,6 +273,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import {reactive, ref, onUnmounted, watch} from 'vue'
 import {passwordLogin, sendSmsCode, smsLogin, resetPassword, wechatLogin} from '@/api/auth'
 import {getToken, setToken, setUser} from '@/services/storage'
+import { loadAsyncRoutes } from '@/services/permission'
 
 /*
  * 图形验证码接口：GET /saas/captcha/{username}
@@ -509,6 +510,7 @@ async function handleLogin() {
     if (res.code === 0) {
       setToken(res.data.accessToken);
       setUser(res.data)
+      await loadAsyncRoutes(true)
       Taro.reLaunch({url: '/pages/home/index'});
       return
     }
@@ -532,6 +534,7 @@ async function handleWechatLogin() {
     if (res.code === 0) {
       setToken(res.data.accessToken);
       setUser(res.data)
+      await loadAsyncRoutes(true)
       Taro.reLaunch({url: '/pages/home/index'});
       return
     }
